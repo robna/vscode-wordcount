@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+- Rewrote README to focus on end-user functionality (not tutorial).
+- Clarified purpose: universal word + selection counts.
+- Minor description tweak for Marketplace.
+
 ## 0.2.0
 - Modernized toolchain: updated to TypeScript 5.x, added @types/vscode, vsce packaging.
 - Updated engines.vscode to ^1.70.0.

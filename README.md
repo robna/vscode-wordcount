@@ -1,25 +1,54 @@
-# VSCode - Word Count Enhanced (wordcount-selection)
- 
-This is a simple extension that illustrates a number of concepts when it comes to writing extensions for VS Code.  
+# Word Count Enhanced (wordcount-selection)
 
-* Activation on a file type open
-* Contributing to the status bar
-* Subscribing to update events
-* Adding a test to your extension
-* Marking up the `package.json` so the gallery looks good
+Practical, lightweight word counting for any (text-based) file in VS Code. Shows both:
 
-## Functionality
+* Total document words
+* Words in your current selection(s) (shown in parentheses)
 
-Open any file and the status bar will show an auto-updating word count for the entire document. If you make a (multi-)selection, the status bar will additionally show the number of words contained only in the current selection inside parentheses. When no text is selected, only the total document word count is shown.
+If you only want a quick, unobtrusive word count that also helps when editing snippets or measuring selected paragraphs across any language / file type, this extension is for you.
 
-If the total word count cannot be determined for any reason, the status bar will show 'Word Count Unavailable' (and still show a selection count if that part can be computed).
+## Features
+
+* Works for any file type (not limited to Markdown)
+* Live total word count in the status bar
+* Selection word count: shows `(N Selected)` when you select text (multi‑selection supported; counts are summed)
+* Graceful fallback: shows `Word Count Unavailable` for extremely large or problematic files (to protect performance)
+* All processing local – no telemetry, no network requests
+* Simple heuristic whitespace-based counting (fast and predictable)
+
+## How Counting Works
+
+Words are determined by collapsing consecutive whitespace and splitting on a single space. HTML-like angle bracket fragments `(< ([^>]+)<)` are stripped (mirroring original sample logic). Selection counts use the exact same logic on just the selected text.
+
+Edge cases:
+* Empty or whitespace-only documents report 0
+* Multi-cursor selections accumulate counts
+* Very large documents (> ~5MB in current version) skip counting and show a fallback message instead of freezing
+
+## Why Another Word Count Extension?
+
+Most existing extensions either target Markdown only or don’t provide quick selection counts across any file. This fork started from Microsoft’s sample and evolved into a focused utility extension: accurate enough for drafting and editing, minimal overhead, and works everywhere.
+
+## Installation
+
+Install from the VS Code Marketplace: `Word Count Enhanced` (Publisher: robna). After installation, open any file; the status bar (left side) will display the counts automatically.
+
+No configuration is required.
+
+## Performance
+
+Counting runs on basic events (editor activation & selection changes). For huge files a guard prevents excessive memory/CPU usage. If you routinely work with very large generated sources, you can open an issue to discuss smarter streaming strategies.
+
+## Roadmap / Ideas
+
+* Optional configurable large-file threshold
+* Exclude patterns (e.g. node_modules) – currently unnecessary because the extension activates post-startup and counts only active editor text
+* More robust tokenization mode (opt-in) for languages with special delimiters
 
 ## Attribution
 
-This extension is a modernized fork of the original sample published at `microsoft/vscode-wordcount` (MIT Licensed). Significant changes include support for all file types, selection word counts, error/large-file fallbacks, and build/tooling modernization.
+Derived from the original MIT-licensed sample at `microsoft/vscode-wordcount`. Reworked for real-world usage: all-file support, selection counting, large-file safeguards, modern TypeScript toolchain, and improved documentation.
 
 ## Disclaimer
 
-This extension is provided "AS IS" under the MIT License. Word counts are heuristic and may be inaccurate for minified, generated, binary-like, or very large files (large files may simply show "Word Count Unavailable"). No guarantees of fitness or correctness are made. The extension performs all processing locally and does not transmit your document contents over the network. Use at your own risk; do not rely on counts for legal, medical, or safety-critical purposes.
-
-![Word Count in status bar](images/wordcount.gif)
+Provided "AS IS" under the MIT License. Word counts are heuristic; may be inaccurate for minified, generated, binary-like, or extremely large files. No data leaves your machine. Not for safety-critical use.

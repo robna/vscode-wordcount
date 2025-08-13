@@ -1,9 +1,9 @@
 {
 	"name": "wordcount-selection",
 	"displayName": "Word Count Enhanced",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"publisher": "robna",
-	"description": "Word count for any file + selection count with fallbacks.",
+	"description": "Word count for any file + selection count; fast, offline, all-file support.",
 	"author": {
 		"name": "seanmcbreen"
 	},
