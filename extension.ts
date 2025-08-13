@@ -22,7 +22,7 @@ export function activate(ctx: ExtensionContext) {
 
 export class WordCounter {
 
-    private _statusBarItem: StatusBarItem;
+    private _statusBarItem!: StatusBarItem; // initialized lazily
 
     public updateWordCount() {
         
@@ -40,30 +40,61 @@ export class WordCounter {
 
         let doc = editor.document;
 
-        // Only update status if an MD file
-        if (doc.languageId === "markdown") {
-            let wordCount = this._getWordCount(doc);
+        let totalWordCount: number | null = null;
+        let selectedWordCountTotal: number | null = null;
+        try {
+            // Count all words for any file type now (previously only markdown)
+            const approxSize = doc.getText().length;
+            if (approxSize > 5_000_000) { // ~5MB guard
+                throw new Error('File too large to count efficiently');
+            }
+            totalWordCount = this._getWordCount(doc);
 
-            // Update the status bar
-            this._statusBarItem.text = wordCount !== 1 ? `$(pencil) ${wordCount} Words` : '$(pencil) 1 Word';
-            this._statusBarItem.show();
-        } else {
-            this._statusBarItem.hide();
+            // Determine selected text word count (aggregate across multi-selections)
+            const editorSelections = editor.selections || [];
+            let selectedAccumulator = 0;
+            for (const sel of editorSelections) {
+                if (sel.isEmpty) { continue; }
+                const text = doc.getText(sel);
+                selectedAccumulator += this._countWordsFromString(text);
+            }
+            selectedWordCountTotal = selectedAccumulator;
+        } catch (err) {
+            // Swallow any unexpected errors and fall through to display a friendly message.
+            totalWordCount = null;
         }
+
+        // Build status bar text with graceful fallbacks
+        let text: string;
+        if (totalWordCount === null) {
+            if (selectedWordCountTotal && selectedWordCountTotal > 0) {
+                text = `$(pencil) ${selectedWordCountTotal === 1 ? '1 Selected' : `${selectedWordCountTotal} Selected`} (Total N/A)`;
+            } else {
+                text = '$(pencil) Word Count Unavailable';
+            }
+        } else {
+            const totalWordsPart = totalWordCount === 1 ? '1 Word' : `${totalWordCount} Words`;
+            text = `$(pencil) ${totalWordsPart}`;
+            if (selectedWordCountTotal && selectedWordCountTotal > 0) {
+                text += selectedWordCountTotal === 1 ? ` (1 Selected)` : ` (${selectedWordCountTotal} Selected)`;
+            }
+        }
+        this._statusBarItem.text = text;
+        this._statusBarItem.show();
     }
 
     public _getWordCount(doc: TextDocument): number {
         let docContent = doc.getText();
+        return this._countWordsFromString(docContent);
+    }
 
+    private _countWordsFromString(text: string): number {
+        if (typeof text !== 'string') { return 0; }
         // Parse out unwanted whitespace so the split is accurate
-        docContent = docContent.replace(/(< ([^>]+)<)/g, '').replace(/\s+/g, ' ');
-        docContent = docContent.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-        let wordCount = 0;
-        if (docContent != "") {
-            wordCount = docContent.split(" ").length;
-        }
-
-        return wordCount;
+        let content = text.replace(/(< ([^>]+)<)/g, '').replace(/\s+/g, ' ');
+        content = content.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        if (content === '') { return 0; }
+        return content.split(' ').length;
     }
 
     public dispose() {
