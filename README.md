@@ -10,6 +10,8 @@ This is a simple extension that illustrates a number of concepts when it comes t
 
 ## Functionality
 
-It's pretty simple open up a `Markdown` file and the status bar will have an auto-updating wordcount in it...
+Open any file and the status bar will show an auto-updating word count for the entire document. If you make a (multi-)selection, the status bar will additionally show the number of words contained only in the current selection inside parentheses. When no text is selected, only the total document word count is shown.
+
+If the total word count cannot be determined for any reason, the status bar will show 'Word Count Unavailable' (and still show a selection count if that part can be computed).
 
 ![Word Count in status bar](images/wordcount.gif)
