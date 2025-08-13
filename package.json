@@ -3,12 +3,20 @@
 	"displayName": "Word Count",
 	"version": "0.2.0",
 	"publisher": "robna",
-	"description": "Word Count - status bar shows total words for any file. Also shows count of words in current selection (if any). States if no word count is available.",
+	"description": "Word count for any file + selection count with fallbacks.",
 	"author": {
 		"name": "seanmcbreen"
 	},
 	"categories": [
 		"Other"
+	],
+	"keywords": [
+		"word count",
+		"writing",
+		"productivity",
+		"status bar",
+		"selection",
+		"editor"
 	],
 	"license": "SEE LICENSE IN LICENSE.txt",
 	"icon": "images/icon.png",
@@ -23,6 +31,10 @@
 		"type": "git",
 		"url": "https://github.com/robna/vscode-wordcount.git"
 	},
+	"bugs": {
+		"url": "https://github.com/robna/vscode-wordcount/issues"
+	},
+	"homepage": "https://github.com/robna/vscode-wordcount#readme",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
