@@ -14,4 +14,8 @@ Open any file and the status bar will show an auto-updating word count for the e
 
 If the total word count cannot be determined for any reason, the status bar will show 'Word Count Unavailable' (and still show a selection count if that part can be computed).
 
+## Attribution
+
+This extension is a modernized fork of the original sample published at `microsoft/vscode-wordcount` (MIT Licensed). Significant changes include support for all file types, selection word counts, error/large-file fallbacks, and build/tooling modernization.
+
 ![Word Count in status bar](images/wordcount.gif)
