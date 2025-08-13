@@ -14,14 +14,12 @@ Open any file and the status bar will show an auto-updating word count for the e
 
 If the total word count cannot be determined for any reason, the status bar will show 'Word Count Unavailable' (and still show a selection count if that part can be computed).
 
-## Screenshot
-
-![Status Bar Word Count](images/wordcount.gif)
-
-The display shows: total words and, when text is selected, a parenthetical selected word count (e.g. `123 Words (5 Selected)`).
-
 ## Attribution
 
 This extension is a modernized fork of the original sample published at `microsoft/vscode-wordcount` (MIT Licensed). Significant changes include support for all file types, selection word counts, error/large-file fallbacks, and build/tooling modernization.
+
+## Disclaimer
+
+This extension is provided "AS IS" under the MIT License. Word counts are heuristic and may be inaccurate for minified, generated, binary-like, or very large files (large files may simply show "Word Count Unavailable"). No guarantees of fitness or correctness are made. The extension performs all processing locally and does not transmit your document contents over the network. Use at your own risk; do not rely on counts for legal, medical, or safety-critical purposes.
 
 ![Word Count in status bar](images/wordcount.gif)

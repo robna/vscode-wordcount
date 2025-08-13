@@ -1,41 +1,25 @@
-<!-- BEGIN MICROSOFT SECURITY.MD V0.0.8 BLOCK -->
+## Security Policy
 
-## Security
+This project is a community fork of the original `microsoft/vscode-wordcount` sample. It has a narrow scope and processes text locally inside the VS Code extension host. The extension does not perform any network requests or collect telemetry.
 
-Microsoft takes the security of our software products and services seriously, which includes all source code repositories managed through our GitHub organizations, which include [Microsoft](https://github.com/microsoft), [Azure](https://github.com/Azure), [DotNet](https://github.com/dotnet), [AspNet](https://github.com/aspnet), [Xamarin](https://github.com/xamarin), and [our GitHub organizations](https://opensource.microsoft.com/).
+### Reporting a Vulnerability
 
-If you believe you have found a security vulnerability in any Microsoft-owned repository that meets [Microsoft's definition of a security vulnerability](https://aka.ms/opensource/security/definition), please report it to us as described below.
+If you believe you have found a security vulnerability (e.g., denial of service via pathological input, unexpected resource consumption, or data leakage):
 
-## Reporting Security Issues
+1. Do not publicly disclose immediately.
+2. Open a new issue at: https://github.com/robna/vscode-wordcount/issues with a short non-sensitive description OR, if sensitive, redact details and offer to provide them privately.
+3. Provide steps to reproduce, including sample text or file characteristics (avoid sharing proprietary content).
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+### Scope
 
-Instead, please report them to the Microsoft Security Response Center (MSRC) at [https://msrc.microsoft.com/create-report](https://aka.ms/opensource/security/create-report).
+In-scope: Logic errors leading to crashes, unbounded resource consumption, or exposure of file contents to other workspaces.
 
-If you prefer to submit without logging in, send email to [secure@microsoft.com](mailto:secure@microsoft.com).  If possible, encrypt your message with our PGP key; please download it from the [Microsoft Security Response Center PGP Key page](https://aka.ms/opensource/security/pgpkey).
+Out-of-scope: Inaccurate word counts for obfuscated, binary, minified, or extremely large files; downstream issues caused by user-installed third-party extensions; deliberate user modification of the extension.
 
-You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Additional information can be found at [microsoft.com/msrc](https://aka.ms/opensource/security/msrc). 
+### Responsible Disclosure
 
-Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:
+We aim to respond within 7 days. If no acknowledgment in that time, you may escalate by tagging the repository owner in the original issue.
 
-  * Type of issue (e.g. buffer overflow, SQL injection, cross-site scripting, etc.)
-  * Full paths of source file(s) related to the manifestation of the issue
-  * The location of the affected source code (tag/branch/commit or direct URL)
-  * Any special configuration required to reproduce the issue
-  * Step-by-step instructions to reproduce the issue
-  * Proof-of-concept or exploit code (if possible)
-  * Impact of the issue, including how an attacker might exploit the issue
+### Disclaimer
 
-This information will help us triage your report more quickly.
-
-If you are reporting for a bug bounty, more complete reports can contribute to a higher bounty award. Please visit our [Microsoft Bug Bounty Program](https://aka.ms/opensource/security/bounty) page for more details about our active programs.
-
-## Preferred Languages
-
-We prefer all communications to be in English.
-
-## Policy
-
-Microsoft follows the principle of [Coordinated Vulnerability Disclosure](https://aka.ms/opensource/security/cvd).
-
-<!-- END MICROSOFT SECURITY.MD BLOCK -->
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. See LICENSE.txt and README disclaimer for details.
