@@ -1,9 +1,9 @@
 {
 	"name": "wordcount",
 	"displayName": "Word Count",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publisher": "ms-vscode",
-	"description": "Markdown Word Count Example - a status bar contribution that reports out the number of words in a Markdown document as you interact with it.",
+	"description": "Word Count - status bar shows total words for any file. Also shows count of words in current selection (if any). States if no word count is available.",
 	"author": {
 		"name": "seanmcbreen"
 	},
@@ -17,22 +17,36 @@
 		"theme": "dark"
 	},
 	"activationEvents": [
-		"onLanguage:markdown"
+		"onStartupFinished"
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Microsoft/vscode-wordcount.git"
 	},
 	"engines": {
-		"vscode": "0.10.x"
+		"vscode": "^1.70.0"
 	},
 	"main": "./out/extension",
 	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+		"compile": "tsc -p ./",
+		"watch": "tsc -w -p ./",
+		"build": "npm run compile",
+		"vscode:prepublish": "npm run compile",
+		"package": "vsce package",
+		"test": "echo 'Legacy tests not yet migrated'"
 	},
 	"devDependencies": {
-		"vscode": "0.10.x",
-		"typescript": "^1.6.2"
-	}
+		"@types/node": "^20.0.0",
+		"@types/mocha": "^10.0.0",
+		"@types/vscode": "^1.70.0",
+		"typescript": "^5.4.0",
+		"vsce": "^2.15.0"
+	},
+	"files": [
+		"out",
+		"images",
+		"README.md",
+		"LICENSE.txt",
+		"CHANGELOG.md"
+	]
 }
